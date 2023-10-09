@@ -66,3 +66,67 @@
     ]
 }
 
+
+# import requests
+# import json
+
+# client_id = "jjb2TAGHSeWYU2kzkQgt9w"
+# client_secret = "150484615350914596700074208810355833973"
+
+# survey_data = '/Users/mgeorgescu/Desktop/LinuxPractie/python/jsonFormatSurvey.json'
+
+# def get_access_token(client_id, client_secret):
+#     auth_url = ''
+#     auth_data = {
+#         'client_id': client_id,
+#         'client_secret': client_secret,
+#         'grant type': 'client credentials'
+#     }
+#     response = requests.post(auth_url, data=auth_data)
+
+#     if response.status_code == 200:
+#         access_token = response.json()['access token']
+#         return access_token
+#     else:
+#         print(f"authentucation failed  with {response.status_code}")
+#         return None
+
+import http.client
+import json
+
+conn = http.client.HTTPSConnection("api.surveymonkey.com")
+access_token = 'lMsBrzQ04CQ89elrGwz-g4oLc5fm7Pv9HbByiWX-tSe2RJKUHLvrmGJw13ARV1AuB9wAP8UAbc7.N9a-x9brOEbArEOXq4xgT0DwdLwqIvzV08PVvDzp63mWhYhY2tFk'
+
+headers = {
+    'Accept': "application/json",
+    'Authorization': f"Bearer {access_token}"
+    }
+
+conn.request("GET", "/v3/surveys", headers=headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
+
+filePath = '/Users/mgeorgescu/Desktop/LinuxPractie/python/jsonFormatSurvey.json'
+
+with open (filePath, 'r') as file:
+    survey_config = json.load(file)
+
+survey_config_json = json.dumps(survey_config)
+
+payload = "{\"headings\":[{\"heading\":\"Which monkey would you rather have as a pet?\",\"description\":\"\",\"image\":{\"url\":\"string\"},\"random_assignment\":{\"percent\":0,\"position\":0,\"variable_name\":\"string\"}}],\"position\":0,\"family\":\"single_choice\",\"subtype\":\"vertical\",\"sorting\":{\"type\":\"string\",\"ignore_last\":true},\"required\":false,\"validation\":{\"type\":\"string\",\"text\":\"string\",\"min\":\"string\",\"max\":\"string\",\"sum\":0,\"sum_text\":\"string\"},\"forced_ranking\":false,\"quiz_options\":{\"scoring_enabled\":true,\"feedback\":{},\"feedback.correct_text\":\"string\",\"feedback.incorrect_text\":\"string\",\"feedback.partial_text\":\"string\"},\"answers\":{\"choices\":[{\"text\":\"Capuchin\"},{\"text\":\"Mandrill\"}]},\"display_options\":{}}"
+
+headers = {
+    'Content-Type': "application/json",
+    'Accept': "application/json",
+    'Authorization': f"Bearer {access_token}"
+    }
+
+conn.request("POST", "/v3/surveys/1234/pages/1234/questions", payload, headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
