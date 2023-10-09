@@ -130,3 +130,81 @@ res = conn.getresponse()
 data = res.read()
 
 print(data.decode("utf-8"))
+
+
+
+
+-----------------------------------------------
+
+
+survey_payload = {
+    "title": "New Survey",
+    "from_template_id": "",
+    "from_survey_id": "",
+    "from_team_template_id": "",
+    "nickname": "My Survey",
+    "language": "en",
+    "buttons_text": {
+        "next_button": "string",
+        "prev_button": "string",
+        "exit_button": "string",
+        "done_button": "string"
+    },
+    "custom_variables": {},
+    "footer": True,
+    "folder_id": "",
+    "theme_id": 1506280,
+    "quiz_options": {
+        "is_quiz_mode": True,
+        "default_question_feedback": {
+            "correct_text": "string",
+            "incorrect_text": "string",
+            "partial_text": "string"
+        },
+        "show_results_type": "string",
+        "feedback": {
+            "ranges_type": "string",
+            "ranges": [
+                {
+                    "min": 0,
+                    "max": 0,
+                    "message": "string"
+                }
+            ]
+        }
+    },
+    "pages": [
+        {
+            "questions": [
+                {
+                    "position": 1,
+                    "family": "single_choice",
+                    "subtype": "vertical",
+                    "headings": [
+                        {
+                            "heading": "Which monkey would you rather have as a pet?"
+                        }
+                    ],
+                    "answers": {
+                        "choices": [
+                            {
+                                "text": "Capuchin"
+                            },
+                            {
+                                "text": "Mandrill"
+                            }
+                        ],
+                        "other": [
+                            {
+                                "text": "Other",
+                                "num_chars": 100,
+                                "num_lines": 3
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}
+
